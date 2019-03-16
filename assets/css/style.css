@@ -1,0 +1,16 @@
+body {
+    background-color: black;
+}
+
+#shows{
+    background-color: grey;
+}
+
+btn-secondary{
+    border-color: red;
+}
+
+.text-color{
+    color: black;
+    
+}

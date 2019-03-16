@@ -2,23 +2,23 @@ var tvShows = ["Breaking Bad", "The Office", "Friends", "Brooklyn Nine-Nine", "H
 
 $(document).ready(function() {
     for (var i = 0; i < tvShows.length; i++) {
-        $("#shows-buttons").append("<button type='button' onclick='searchGif(\"" + tvShows[i] + "\")' class='btn btn-primary' value=' " + tvShows[i] + "'> " + tvShows[i] + " </button>");
+        $("#shows-buttons").append("<button type='button' onclick='searchGif(\"" + tvShows[i] + "\")' class='btn btn-secondary' value=' " + tvShows[i] + "'> " + tvShows[i] + " </button>");
     }
 });
 
 function showsButtonClicked() {
-    var userInput = $('#shows-input').val();
+    var userInput = $('#shows-input').val().trim();
     searchGif(userInput);
 }
 
-function submitButtonClicked(event) {
+$(document).on("click", "#add-shows", function(event) {
     event.preventDefault()
-    var userInput = $('#shows-input').val();
-
+    var userInput = $('#shows-input').val().trim();
     if (userInput) {
-        $('#shows-buttons').append("<button type='button' onclick='searchGif(\"" + userInput + "\")' class='btn btn-primary' value=' " + userInput + "'> " + userInput + " </button>");
+        $('#shows-buttons').append("<button type='button' onclick='searchGif(\"" + userInput + "\")' class='btn btn-secondary' value=' " + userInput + "'> " + userInput + " </button>");
     }
-}
+
+});
 
 function searchGif(gifName) {
     $.ajax({
@@ -26,14 +26,14 @@ function searchGif(gifName) {
             type: 'GET',
         })
         .done(function(response) {
-            displayGif(response);
+        displayGif(response);
         })
 }
 
 function displayGif(response) {
     $('#shows').empty();
     for (var i = 0; i < response.data.length; i++) {
-        var rating = "<div class='ratings'> Rating:  " + (response.data[i].rating) + " </div>";
+        var rating = "<div class='ratings text-color'> Rating:  " + (response.data[i].rating) + " </div>";
         var image = rating + '<img src= " ' + response.data[i].images.fixed_height_still.url +
             '" data-still=" ' + response.data[i].images.fixed_height_still.url +
             ' " data-animate=" ' + response.data[i].images.fixed_height.url + '" data-state="still" class="movImage" style= "width:250px; height:250px">';
